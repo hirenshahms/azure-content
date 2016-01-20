@@ -20,7 +20,7 @@
   
 This article explains the scheduling and execution aspects of Azure Data Factory application model. This article builds on [Creating Pipelines](data-factory-create-pipelines.md) and [Creating Datasets](data-factory-create-datasets.md) articles and assumes that you understand basics of data factory application model concepts: activity, pipelines, linked services and datasets.
 
-## Scheduling Activities
+## Scheduling Activities and Activity Windows
 
 With the **scheduler** section in the activity JSON, you can specify a recurring schedule for the activity. For example you can schedule activity runs every hour as follows:
 
@@ -31,9 +31,9 @@ With the **scheduler** section in the activity JSON, you can specify a recurring
     
 ![Scheduler example](./media/data-factory-scheduling-and-execution/scheduler-example.png)
 
-As shown above, specifying an hourly schedule creates activity runs corresponding to a series of tumbling windows. Tumbling windows are series of fixed-sized, non-overlapping and contiguous time intervals.
+As shown above, specifying a schedule on an activity generates a series of tumbling windows according to the schedule. Tumbling windows are series of fixed-sized, non-overlapping and contiguous time intervals. These time intervals are called **Activity Windows**. 
  
-For the currently executing activity run, the window time interval can be accessed with **WindowStart** and **WindowEnd** system variables in the activity JSON. You can use these variables for different purposes in your activity JSON and scripts associated with the activity including selecting data from input, output datasets representing time series data.
+For a given activity window, the time interval associated with the window can be accessed with **WindowStart** and **WindowEnd** system variables in the activity JSON. You can use these variables for different purposes in your activity JSON and scripts associated with the activity including selecting data from input, output datasets representing time series data.
 
 For more information on different properties available for scheduler including scheduling at a specific time offset, setting the mode to align processing at the beginning of interval for the window or at the end please refer to the [Creating Pipelines](data-factory-create-pipelines.md) article.
 
